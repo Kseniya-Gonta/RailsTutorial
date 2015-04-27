@@ -3,6 +3,7 @@ require File.expand_path('../spec_helper.rb', File.dirname(__FILE__))
 
 
 describe "Static pages" do
+  subject { page }
   let (:title) {"Ruby on Rails Tutorial Sample App"}
 
   describe "Home page" do
@@ -36,8 +37,18 @@ describe "Static pages" do
           expect(page).to have_selector("li##{item.id}", text: item.content)
         end
       end
+
+      describe "follower/following counts" do
+        let(:other_user) { FactoryGirl.create(:user) }
+        before do
+          other_user.follow!(user)
+          visit root_path
+        end
+
+        it { should have_link("0 following", href: following_user_path(user)) }
+        it { should have_link("1 followers", href: followers_user_path(user)) }
+      end
     end
-    
   end
 
   describe "Help page" do
