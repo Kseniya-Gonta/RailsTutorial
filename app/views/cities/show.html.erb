@@ -1,0 +1,11 @@
+<% provide(:title, 'All users') %>
+
+
+
+<header><h3><%= @city.cityName %>:</h3></header>
+
+<li >  <% @human.each do |k| %>
+          <%= link_to k.name, k %>
+
+      <% end %>
+</li>

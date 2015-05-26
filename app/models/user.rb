@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
                                    class_name:  "Relationship",
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
+  belongs_to :city
   has_secure_password
   before_save { self.email = email.downcase }
   before_create :create_remember_token
